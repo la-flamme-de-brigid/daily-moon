@@ -10,6 +10,9 @@ use DailyMoon\Renderer;
 use Pimple\Container;
 use DailyMoon\DailyMoonProvider;
 
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
 $container = new Container();
 $container->register(new DailyMoonProvider());
 

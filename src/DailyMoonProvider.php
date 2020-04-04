@@ -23,7 +23,7 @@ class DailyMoonProvider implements ServiceProviderInterface
         $container[MoonPhaseRepository::class] = function () use ($container) {
             return new MoonPhaseRepository(
                 new Client([
-                    'base_uri' => 'https://mooncalendar.astro-seek.com'
+                    'base_uri' => getenv('ASTROSEEK_API')
                 ]),
                 new CrawlerFactory()
             );
