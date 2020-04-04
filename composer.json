@@ -1,0 +1,19 @@
+{
+    "name": "witch-please/daily-moon",
+    "authors": [
+        {
+            "name": "Laure Betaille",
+            "email": "laure@witch-please.fr"
+        }
+    ],
+    "require": {
+        "twig/twig": "^3.0",
+        "guzzlehttp/guzzle": "^6.5",
+        "pimple/pimple": "^3.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "DailyMoon\\": "src/"
+        }
+    }
+}
