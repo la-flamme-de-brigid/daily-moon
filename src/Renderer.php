@@ -9,13 +9,21 @@ class Renderer {
     /** @var Environment */
     private $twig;
 
-    public function __construct(Environment $twig)
+    /** @var MoonPhaseRepository */
+    private $repository;
+
+    public function __construct(Environment $twig, MoonPhaseRepository $repository)
     {
         $this->twig = $twig;
+        $this->repository = $repository;
     }
 
     public function render()
     {
-        echo $this->twig->render('index.twig');        
+        $moonPhase = $this->repository->find();
+
+        echo $this->twig->render('index.twig', [
+            'moonphase' => $moonPhase
+        ]);        
     }
 }

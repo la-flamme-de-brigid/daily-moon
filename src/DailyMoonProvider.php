@@ -4,6 +4,7 @@ namespace DailyMoon;
 
 use Pimple\Container;
 use Twig\Environment;
+use GuzzleHttp\Client;
 use Pimple\ServiceProviderInterface;
 
 class DailyMoonProvider implements ServiceProviderInterface
@@ -19,9 +20,19 @@ class DailyMoonProvider implements ServiceProviderInterface
             return $twig;
         };
 
+        $container[MoonPhaseRepository::class] = function () use ($container) {
+            return new MoonPhaseRepository(
+                new Client([
+                    'base_uri' => 'https://mooncalendar.astro-seek.com'
+                ]),
+                new CrawlerFactory()
+            );
+        };
+
         $container[Renderer::class] = function () use ($container) {
             return new Renderer(
-                $container[Environment::class]
+                $container[Environment::class],
+                $container[MoonPhaseRepository::class]
             );
         };
     }
