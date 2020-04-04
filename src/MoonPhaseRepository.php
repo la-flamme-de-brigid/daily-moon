@@ -8,20 +8,20 @@ use DailyMoon\MoonPhase;
 class MoonPhaseRepository {
 
     /** @var Client */
-    private $client;
+    private $astroSeekClient;
 
     /** @var CrawlerFactory */
     private $crawlerFactory;
 
-    public function __construct(Client $client, CrawlerFactory $crawlerFactory)
+    public function __construct(Client $astroSeekClient, CrawlerFactory $crawlerFactory)
     {
-        $this->client = $client;
+        $this->astroSeekClient = $astroSeekClient;
         $this->crawlerFactory = $crawlerFactory;
     }
     
     public function find(): MoonPhase
     {
-        $response = $this->client->get('/', [
+        $response = $this->astroSeekClient->get('/', [
             'narozeni_city' => 'Paris,+France'
         ]);
 
