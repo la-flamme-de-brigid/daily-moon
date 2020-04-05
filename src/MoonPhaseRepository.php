@@ -10,12 +10,16 @@ class MoonPhaseRepository {
     /** @var Client */
     private $astroSeekClient;
 
+    /** @var LunopiaClient */
+    private $lunopiaClient;
+
     /** @var CrawlerFactory */
     private $crawlerFactory;
 
-    public function __construct(Client $astroSeekClient, CrawlerFactory $crawlerFactory)
+    public function __construct(Client $astroSeekClient, LunopiaClient $lunopiaClient, CrawlerFactory $crawlerFactory)
     {
         $this->astroSeekClient = $astroSeekClient;
+        $this->lunopiaClient = $lunopiaClient;
         $this->crawlerFactory = $crawlerFactory;
     }
     
@@ -26,6 +30,8 @@ class MoonPhaseRepository {
         ]);
 
         $body = $response->getBody(true);
+
+        $this->lunopiaClient->getMoonRiseAndMoonSet();
 
         return $this->makeMoonPhase($body);
     }

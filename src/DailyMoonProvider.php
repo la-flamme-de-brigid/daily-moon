@@ -20,17 +20,19 @@ class DailyMoonProvider implements ServiceProviderInterface
             return $twig;
         };
 
+        $container[LunopiaClient::class] = function () {
+            return new LunopiaClient(
+                getenv('LUNOPIA_API_BASE_URL'),
+                getenv('LUNOPIA_API_KEY')
+            );
+        };
+
         $container[MoonPhaseRepository::class] = function () use ($container) {
             return new MoonPhaseRepository(
                 new Client([
                     'base_uri' => getenv('ASTROSEEK_API')
                 ]),
-                new Client([
-                    'base_uri' => getenv('LUNOPIA_API_BASE_URL'),
-                    'query' => [
-                        'key' => getenv('LUNOPIA_API_KEY')
-                    ]
-                ]),
+                $container[LunopiaClient::class],
                 new CrawlerFactory()
             );
         };
