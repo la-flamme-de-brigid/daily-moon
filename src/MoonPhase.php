@@ -123,4 +123,12 @@ class MoonPhase {
             $imgUrl
         );
     }
+
+    /**
+     * Get the value of imgUrl
+     */ 
+    public function getImgUrl()
+    {
+        return $this->imgUrl;
+    }
 }
