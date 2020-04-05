@@ -20,17 +20,41 @@ class LunopiaClient {
 
     public function getMoonRiseAndMoonSet(Carbon $date): object
     {
-        $data = $this->fetch('rs', [
+        return $this->fetch('rs', [
             'day' => $date->day,
             'month' => $date->month,
             'year'=> $date->year,
             'where' => 'Paris'
         ]);
-
-        return $data;
     }
 
-    private function fetch(string $what, array $params): object
+    public function getImage(Carbon $date): string
+    {
+        return $this->makeApiUrl('img', [
+            'minute'=> $date->minute,
+            'hour'=> $date->hour,
+            'day' => $date->day,
+            'month' => $date->month,
+            'year'=> $date->year,
+            'timeZone' => 'Europe/Paris',
+            'hemisphere' => 'n',
+            'model' => 5,
+            'size' => 136,
+            'bg' => 'efefef'
+        ]);
+    }
+
+    public function getEphemeris(Carbon $date): array
+    {
+        return $this->fetch('ephem', [
+            'day' => $date->day,
+            'month' => $date->month,
+            'year'=> $date->year,
+            'timeZone' => 'Europe/Paris'
+        ]);
+    }
+
+    private function fetch(string $what, array $params)
     {
         $url = $this->makeApiUrl($what, $params);
 

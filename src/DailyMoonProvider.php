@@ -32,8 +32,7 @@ class DailyMoonProvider implements ServiceProviderInterface
                 new Client([
                     'base_uri' => getenv('ASTROSEEK_API')
                 ]),
-                $container[LunopiaClient::class],
-                new CrawlerFactory()
+                $container[LunopiaClient::class]
             );
         };
 
