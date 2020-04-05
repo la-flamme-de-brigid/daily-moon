@@ -18,14 +18,12 @@ class LunopiaClient {
         $this->apiKey = $apiKey;
     }
 
-    public function getMoonRiseAndMoonSet(): object
+    public function getMoonRiseAndMoonSet(Carbon $date): object
     {
-        $now = Carbon::now();
-
         $data = $this->fetch('rs', [
-            'day' => $now->day,
-            'month' => $now->month,
-            'year'=> $now->year,
+            'day' => $date->day,
+            'month' => $date->month,
+            'year'=> $date->year,
             'where' => 'Paris'
         ]);
 

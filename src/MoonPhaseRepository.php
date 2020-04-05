@@ -2,8 +2,10 @@
 
 namespace DailyMoon;
 
+use Carbon\Carbon;
 use GuzzleHttp\Client;
 use DailyMoon\MoonPhase;
+use DailyMoon\Lunopia\Moon;
 
 class MoonPhaseRepository {
 
@@ -31,7 +33,8 @@ class MoonPhaseRepository {
 
         $body = $response->getBody(true);
 
-        $this->lunopiaClient->getMoonRiseAndMoonSet();
+        $now = Carbon::now();
+        $this->lunopiaClient->getMoonRiseAndMoonSet($now);
 
         return $this->makeMoonPhase($body);
     }
