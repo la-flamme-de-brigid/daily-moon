@@ -2,7 +2,6 @@
 
 namespace DailyMoon;
 
-use Carbon\Carbon;
 use Symfony\Component\DomCrawler\Crawler;
 
 class MoonPhase {
@@ -16,10 +15,10 @@ class MoonPhase {
     /** @var string */
     private $trajectory;
 
-    /** @var Carbon */
+    /** @var Ephemeris */
     private $rise;
 
-    /** @var Carbon */
+    /** @var Ephemeris */
     private $set;
 
     /** @var string */
@@ -32,8 +31,8 @@ class MoonPhase {
         string $phase,
         string $illumination,
         string $trajectory,
-        Carbon $rise,
-        Carbon $set,
+        Ephemeris $rise,
+        Ephemeris $set,
         string $sign,
         string $imgUrl
     ) {
@@ -94,6 +93,15 @@ class MoonPhase {
         return $this->sign;
     }
 
+    
+    /**
+     * Get the value of imgUrl
+     */ 
+    public function getImgUrl()
+    {
+        return $this->imgUrl;
+    }
+
     public static function makeMoonPhaseFromApisData(
         string $astroSeekBody,
         object $moonRiseAndMoonSetData,
@@ -104,31 +112,14 @@ class MoonPhase {
         $crawler = new Crawler($astroSeekBody);
         $sign = $crawler->filter('body .dum-znameni tr')->eq(1)->filter('td')->eq(2)->text();
 
-
-        $riseHour = str_replace('h', ':', $moonRiseAndMoonSetData->LUNE->LEVE);
-        $setHour = str_replace('h', ':', $moonRiseAndMoonSetData->LUNE->COUCHE);
         return new self(
             $ephemerisData[0]->PHASE,
             $ephemerisData[0]->ILLUMINATION,
             $ephemerisData[0]->TRAJECTOIRE,
-            Carbon::createFromTimeString(
-                $riseHour,
-                'Europe/Paris'
-            ),
-            Carbon::createFromTimeString(
-                $setHour,
-                'Europe/Paris'
-            ),
+            new Ephemeris($moonRiseAndMoonSetData->LUNE->LEVE),
+            new Ephemeris($moonRiseAndMoonSetData->LUNE->COUCHE),
             $sign,
             $imgUrl
         );
-    }
-
-    /**
-     * Get the value of imgUrl
-     */ 
-    public function getImgUrl()
-    {
-        return $this->imgUrl;
     }
 }
