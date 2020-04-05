@@ -34,6 +34,15 @@ class MoonPhaseRepository {
         $imgUrl = $this->lunopiaClient->getImage($now);
         $ephemerisData = $this->lunopiaClient->getEphemeris($now);
 
-        return MoonPhase::makeMoonPhaseFromApisData($astroSeekBody, $moonRiseAndSetData, $imgUrl, $ephemerisData);
+        $moonPhase = MoonPhase::makeMoonPhaseFromApisData($astroSeekBody, $moonRiseAndSetData, $imgUrl, $ephemerisData);
+
+        if (!$moonPhase->hasSet()) {
+            $tomorrow = Carbon::tomorrow();
+            $tomorrowMoonRiseAndMoonSetData = $this->lunopiaClient->getMoonRiseAndMoonSet($tomorrow);
+
+            return MoonPhase::makeMoonPhaseFromApisData($astroSeekBody, $tomorrowMoonRiseAndMoonSetData, $imgUrl, $ephemerisData);
+        }
+
+        return $moonPhase;
     }
 }

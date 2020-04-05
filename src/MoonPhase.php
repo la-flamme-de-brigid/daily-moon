@@ -102,6 +102,11 @@ class MoonPhase {
         return $this->imgUrl;
     }
 
+    public function hasSet()
+    {
+        return $this->set->getHour() !== '--';
+    }
+
     public static function makeMoonPhaseFromApisData(
         string $astroSeekBody,
         object $moonRiseAndMoonSetData,
