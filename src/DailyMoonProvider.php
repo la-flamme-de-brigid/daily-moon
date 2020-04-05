@@ -25,6 +25,12 @@ class DailyMoonProvider implements ServiceProviderInterface
                 new Client([
                     'base_uri' => getenv('ASTROSEEK_API')
                 ]),
+                new Client([
+                    'base_uri' => getenv('LUNOPIA_API_BASE_URL'),
+                    'query' => [
+                        'key' => getenv('LUNOPIA_API_KEY')
+                    ]
+                ]),
                 new CrawlerFactory()
             );
         };
