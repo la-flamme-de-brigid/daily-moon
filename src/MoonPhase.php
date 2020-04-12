@@ -6,7 +6,7 @@ use Symfony\Component\DomCrawler\Crawler;
 
 class MoonPhase {
 
-    /** @var string */
+    /** @var Phase */
     private $phase;
 
     /** @var string */
@@ -21,14 +21,14 @@ class MoonPhase {
     /** @var Ephemeris */
     private $set;
 
-    /** @var string */
+    /** @var Sign */
     private $sign;
 
     /** @var string */
     private $imgUrl;
 
     public function __construct(
-        string $phase,
+        Phase $phase,
         string $illumination,
         string $trajectory,
         Ephemeris $rise,
@@ -48,7 +48,7 @@ class MoonPhase {
     /**
      * Get the value of phase
      */ 
-    public function getPhase()
+    public function getPhase(): Phase
     {
         return $this->phase;
     }
@@ -118,7 +118,7 @@ class MoonPhase {
         $labelSign = $crawler->filter('body .dum-znameni tr')->eq(1)->filter('td')->eq(2)->text();
 
         return new self(
-            $ephemerisData[0]->PHASE,
+            new Phase($ephemerisData[0]->PHASE),
             $ephemerisData[0]->ILLUMINATION,
             $ephemerisData[0]->TRAJECTOIRE,
             new Ephemeris($moonRiseAndMoonSetData->LUNE->LEVE),

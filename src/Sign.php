@@ -2,7 +2,7 @@
 
 namespace DailyMoon;
 
-class Sign
+class Sign extends Translator
 {
     const TRANSLATION = [
         'Aries' => '♈️ Aries',
@@ -18,26 +18,4 @@ class Sign
         'Aquarius' => '♒️ Aquarius',
         'Pisces' => '♓️ Pisces'
     ];
-
-    /** @var string */
-    private $label;
-
-    public function __construct(string $label)
-    {
-        $this->label = $label;
-    }
-
-    public function __toString(): string
-    {
-        if (!isset(self::TRANSLATION[$this->label])) {
-            return $this->label;
-        }
-
-        return self::TRANSLATION[$this->label];
-    }
-
-    public function getOriginal()
-    {
-        return $this->label;
-    }
 }
