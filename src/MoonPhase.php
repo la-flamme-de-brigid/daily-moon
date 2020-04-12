@@ -2,9 +2,13 @@
 
 namespace DailyMoon;
 
+use Carbon\Carbon;
 use Symfony\Component\DomCrawler\Crawler;
 
 class MoonPhase {
+
+    /** @var Date */
+    private $date;
 
     /** @var Phase */
     private $phase;
@@ -31,6 +35,7 @@ class MoonPhase {
     private $imgUrl;
 
     public function __construct(
+        Date $date,
         Phase $phase,
         Cycle $cycle,
         Illumination $illumination,
@@ -48,6 +53,15 @@ class MoonPhase {
         $this->set = $set;
         $this->sign = $sign;
         $this->imgUrl = $imgUrl;
+        $this->date = $date;
+    }
+
+    /**
+     * @return Date
+     */
+    public function getDate(): Date
+    {
+        return $this->date;
     }
 
     /**
@@ -131,6 +145,7 @@ class MoonPhase {
         $labelSign = $crawler->filter('body .dum-znameni tr')->eq(1)->filter('td')->eq(2)->text();
 
         return new self(
+            new Date(Carbon::now()),
             new Phase($ephemerisData[0]->PHASE),
             new Cycle($ephemerisData[0]->PHASE),
             new Illumination($ephemerisData[0]->ILLUMINATION),
