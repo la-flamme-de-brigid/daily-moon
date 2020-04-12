@@ -33,7 +33,7 @@ class MoonPhase {
         string $trajectory,
         Ephemeris $rise,
         Ephemeris $set,
-        string $sign,
+        Sign $sign,
         string $imgUrl
     ) {
         $this->phase = $phase;
@@ -88,7 +88,7 @@ class MoonPhase {
         /**
      * Get the value of sign
      */ 
-    public function getSign(): string
+    public function getSign(): Sign
     {
         return $this->sign;
     }
@@ -115,7 +115,7 @@ class MoonPhase {
     ): MoonPhase {
         
         $crawler = new Crawler($astroSeekBody);
-        $sign = $crawler->filter('body .dum-znameni tr')->eq(1)->filter('td')->eq(2)->text();
+        $labelSign = $crawler->filter('body .dum-znameni tr')->eq(1)->filter('td')->eq(2)->text();
 
         return new self(
             $ephemerisData[0]->PHASE,
@@ -123,7 +123,7 @@ class MoonPhase {
             $ephemerisData[0]->TRAJECTOIRE,
             new Ephemeris($moonRiseAndMoonSetData->LUNE->LEVE),
             new Ephemeris($moonRiseAndMoonSetData->LUNE->COUCHE),
-            $sign,
+            new Sign($labelSign),
             $imgUrl
         );
     }

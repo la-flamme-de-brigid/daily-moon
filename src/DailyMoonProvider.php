@@ -15,6 +15,8 @@ class DailyMoonProvider implements ServiceProviderInterface
             $loader = new \Twig\Loader\FilesystemLoader(plugin_dir_path( __FILE__ ) . "/../templates");
             $twig = new \Twig\Environment($loader, [
                 'cache' => false,
+                'debug' => true,
+                'strict_variables' => true
             ]);
 
             return $twig;
