@@ -12,7 +12,7 @@ class MoonPhase {
     /** @var Cycle */
     private $cycle;
 
-    /** @var string */
+    /** @var Illumination */
     private $illumination;
 
     /** @var Trajectory */
@@ -33,7 +33,7 @@ class MoonPhase {
     public function __construct(
         Phase $phase,
         Cycle $cycle,
-        string $illumination,
+        Illumination $illumination,
         Trajectory $trajectory,
         Ephemeris $rise,
         Ephemeris $set,
@@ -69,7 +69,7 @@ class MoonPhase {
     /**
      * Get the value of illumination
      */ 
-    public function getIllumination()
+    public function getIllumination(): Illumination
     {
         return $this->illumination;
     }
@@ -133,7 +133,7 @@ class MoonPhase {
         return new self(
             new Phase($ephemerisData[0]->PHASE),
             new Cycle($ephemerisData[0]->PHASE),
-            $ephemerisData[0]->ILLUMINATION,
+            new Illumination($ephemerisData[0]->ILLUMINATION),
             new Trajectory($ephemerisData[0]->TRAJECTOIRE),
             new Ephemeris($moonRiseAndMoonSetData->LUNE->LEVE),
             new Ephemeris($moonRiseAndMoonSetData->LUNE->COUCHE),
