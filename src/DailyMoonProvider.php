@@ -44,5 +44,15 @@ class DailyMoonProvider implements ServiceProviderInterface
                 $container[MoonPhaseRepository::class]
             );
         };
+
+        $container[Widget::class] = function () use ($container) {
+            return new Widget(
+                $container[Renderer::class]
+            );
+        };
+
+        $container[Bootstrap::class] = function () use ($container) {
+            return new Bootstrap($container[Widget::class]);
+        };
     }
 }

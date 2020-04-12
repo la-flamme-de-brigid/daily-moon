@@ -6,7 +6,7 @@
 
 require plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
 
-use DailyMoon\Renderer;
+use DailyMoon\Bootstrap;
 use Pimple\Container;
 use DailyMoon\DailyMoonProvider;
 
@@ -16,5 +16,5 @@ $dotenv->load();
 $container = new Container();
 $container->register(new DailyMoonProvider());
 
-/** @var Renderer */
-$container[Renderer::class]->render();
+/** @var Bootstrap */
+$container[Bootstrap::class]();
