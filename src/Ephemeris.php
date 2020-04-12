@@ -25,8 +25,6 @@ class Ephemeris {
     public function __toString()
     {
         if ($this->hour === '--') {
-
-            dd('--');
             return '--';
         }
 
