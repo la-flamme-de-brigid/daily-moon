@@ -1,22 +1,13 @@
-{{ moonphase.sign}}
-
-{{ moonphase.set }}
-
-{{ moonphase.sign.original }}
-
-{{ moonphase.phase }}
-{{ moonphase.phase.original }}
-
-{{ moonphase.trajectory }}
-{{ moonphase.trajectory.original }}
-
-<br>
-{{ moonphase.cycle }}
-{{ moonphase.cycle.original }}
-
-{{ moonphase.illumination }}
-
-<br>
-{{ moonphase.date }}
-
-<img src="{{ moonphase.imgUrl }}">
+<div style="text-align: center">
+    <p style="margin-top: -10px;"><b>{{ moonphase.phase }}</b></p>
+    <p>{{ moonphase.date }} – 🇫🇷 France</p>
+    <img style="padding-bottom: 13px; padding-top: 13px" src="{{ moonphase.imgUrl }}" title="Illumination » {{ moonphase.illumination }}">
+</div>
+<div style="text-align: center; color: black;">
+    <!-- <p>Illumination » <b><?php echo $ephemeride_datas['illumination'] ?></b></p>-->
+    <p>Cycle » <b>{{ moonphase.cycle }}</b></p>
+    <p>Trajectory » <b>{{ moonphase.trajectory }}</b></p>
+    <p>Moonrise » <b>{{ moonphase.rise }}</b></p>
+    <p>Moonset » <b>{{ moonphase.set }}</b></p>
+    <p>Moon sign » <b>{{ moonphase.sign }}</b></p>
+</div>

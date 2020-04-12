@@ -16,6 +16,6 @@ class Date
 
     public function __toString(): string
     {
-        return $this->currentDate->format('M. d, Y') . ' – 🇫🇷 France';
+        return $this->currentDate->format('M. d, Y');
     }
 }

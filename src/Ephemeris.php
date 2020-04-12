@@ -24,6 +24,12 @@ class Ephemeris {
 
     public function __toString()
     {
+        if ($this->hour === '--') {
+
+            dd('--');
+            return '--';
+        }
+
         $hour = Carbon::createFromTimeString(
             $setHour = str_replace('h', ':', $this->hour),
             'Europe/Paris'
