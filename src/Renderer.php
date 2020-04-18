@@ -2,6 +2,7 @@
 
 namespace DailyMoon;
 
+use DailyMoon\Repositories\MoonPhaseRepository;
 use Twig\Environment;
 
 class Renderer {

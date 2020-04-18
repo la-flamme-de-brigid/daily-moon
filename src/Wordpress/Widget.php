@@ -1,6 +1,8 @@
 <?php
 
-namespace DailyMoon;
+namespace DailyMoon\Wordpress;
+
+use DailyMoon\Renderer;
 
 class Widget extends \WP_Widget
 {

@@ -1,5 +1,7 @@
 <?php
-namespace DailyMoon;
+namespace DailyMoon\Wordpress;
+
+use DailyMoon\Wordpress\Widget;
 
 class Bootstrap
 {

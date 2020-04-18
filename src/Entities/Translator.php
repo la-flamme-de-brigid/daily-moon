@@ -1,8 +1,8 @@
 <?php
 
-namespace DailyMoon;
+namespace DailyMoon\Entities;
 
-class Translator
+abstract class Translator
 {
     const TRANSLATION = [];
 

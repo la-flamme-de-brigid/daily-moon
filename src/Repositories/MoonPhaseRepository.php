@@ -1,11 +1,11 @@
 <?php
 
-namespace DailyMoon;
+namespace DailyMoon\Repositories;
 
 use Carbon\Carbon;
+use DailyMoon\API\LunopiaClient;
 use GuzzleHttp\Client;
-use DailyMoon\MoonPhase;
-use DailyMoon\Lunopia\Moon;
+use DailyMoon\Entities\MoonPhase;
 
 class MoonPhaseRepository {
 

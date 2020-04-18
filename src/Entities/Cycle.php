@@ -1,6 +1,6 @@
 <?php
 
-namespace DailyMoon;
+namespace DailyMoon\Entities;
 
 class Cycle extends Translator
 {

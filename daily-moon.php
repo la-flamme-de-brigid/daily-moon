@@ -6,7 +6,7 @@
 
 require plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
 
-use DailyMoon\Bootstrap;
+use DailyMoon\Wordpress\Bootstrap;
 use Pimple\Container;
 use DailyMoon\DailyMoonProvider;
 

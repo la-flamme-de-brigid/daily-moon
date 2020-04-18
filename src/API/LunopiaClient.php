@@ -1,6 +1,6 @@
 <?php
 
-namespace DailyMoon;
+namespace DailyMoon\API;
 
 use Carbon\Carbon;
 

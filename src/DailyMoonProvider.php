@@ -2,6 +2,10 @@
 
 namespace DailyMoon;
 
+use DailyMoon\API\LunopiaClient;
+use DailyMoon\Repositories\MoonPhaseRepository;
+use DailyMoon\Wordpress\Bootstrap;
+use DailyMoon\Wordpress\Widget;
 use Pimple\Container;
 use Twig\Environment;
 use GuzzleHttp\Client;
