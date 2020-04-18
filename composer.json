@@ -14,7 +14,8 @@
         "symfony/css-selector": "^5.0",
         "vlucas/phpdotenv": "^4.1",
         "nesbot/carbon": "^2.32",
-        "larapack/dd": "^1.1"
+        "larapack/dd": "^1.1",
+        "phpfastcache/phpfastcache": "^8.0"
     },
     "autoload": {
         "psr-4": {

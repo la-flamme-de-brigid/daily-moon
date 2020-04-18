@@ -2,10 +2,13 @@
 
 namespace DailyMoon;
 
+use DailyMoon\API\Cache;
 use DailyMoon\API\LunopiaClient;
 use DailyMoon\Repositories\MoonPhaseRepository;
 use DailyMoon\Wordpress\Bootstrap;
 use DailyMoon\Wordpress\Widget;
+use Phpfastcache\CacheManager;
+use Phpfastcache\Config\ConfigurationOption;
 use Pimple\Container;
 use Twig\Environment;
 use GuzzleHttp\Client;
@@ -26,10 +29,23 @@ class DailyMoonProvider implements ServiceProviderInterface
             return $twig;
         };
 
-        $container[LunopiaClient::class] = function () {
+        $container[Cache::class] = function () {
+            CacheManager::setDefaultConfig(
+                new ConfigurationOption([
+                    'path' => plugin_dir_path( __FILE__ ) . "/../cache/api"
+                ])
+            );
+
+            return new Cache(
+                CacheManager::getInstance('files')
+            );
+        };
+
+        $container[LunopiaClient::class] = function () use ($container) {
             return new LunopiaClient(
                 getenv('LUNOPIA_API_BASE_URL'),
-                getenv('LUNOPIA_API_KEY')
+                getenv('LUNOPIA_API_KEY'),
+                $container[Cache::class]
             );
         };
 

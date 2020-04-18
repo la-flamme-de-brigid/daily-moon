@@ -12,10 +12,14 @@ class LunopiaClient {
     /** @var string */
     private $apiKey;
 
-    public function __construct(string $baseUrl, string $apiKey)
+    /** @var Cache */
+    private $cache;
+
+    public function __construct(string $baseUrl, string $apiKey, Cache $cache)
     {
         $this->baseUrl = $baseUrl;
         $this->apiKey = $apiKey;
+        $this->cache = $cache;
     }
 
     public function getMoonRiseAndMoonSet(Carbon $date): object
@@ -56,14 +60,23 @@ class LunopiaClient {
 
     private function fetch(string $what, array $params)
     {
+        $key = $what . base64_encode(serialize($params));
+
+        if ($this->cache->has($key)) {
+            return $this->cache->get($key);
+        }
+
         $url = $this->makeApiUrl($what, $params);
 
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         $datas = curl_exec($curl);
         curl_close($curl);
-    
-        return json_decode($datas);
+
+        $jsonData = json_decode($datas);
+        $this->cache->set($key, $jsonData);
+
+        return $jsonData;
     }
 
     private function makeApiUrl(string $what, array $params): string

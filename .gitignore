@@ -6,7 +6,8 @@
 composer.phar
 /vendor/
 
-cache/*
+cache/templates
+cache/api
 
 .env
 
