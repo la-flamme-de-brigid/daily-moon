@@ -2,8 +2,10 @@
 
 namespace DailyMoon\Entities;
 
-class Phase extends Translator
+class Phase
 {
+    use Translator;
+
     const TRANSLATION = [
         'NOUVELLE LUNE' => '🌑 NEW MOON',
         'PREMIER CROISSANT' => '🌒 FIRST CRESCENT',

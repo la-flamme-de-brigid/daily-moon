@@ -2,8 +2,10 @@
 
 namespace DailyMoon\Entities;
 
-class Sign extends Translator
+class Sign
 {
+    use Translator;
+
     const TRANSLATION = [
         'Aries' => '♈️ Aries',
         'Taurus' => '♉️ Taurus',

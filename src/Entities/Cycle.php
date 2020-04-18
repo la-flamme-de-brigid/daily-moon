@@ -2,8 +2,10 @@
 
 namespace DailyMoon\Entities;
 
-class Cycle extends Translator
+class Cycle
 {
+    use Translator;
+
     const TRANSLATION = [
         'NOUVELLE LUNE' => '🌛 Waxing moon',
         'PREMIER CROISSANT' => '🌛 Waxing moon',

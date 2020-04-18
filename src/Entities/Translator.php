@@ -2,10 +2,8 @@
 
 namespace DailyMoon\Entities;
 
-abstract class Translator
+trait Translator
 {
-    const TRANSLATION = [];
-
     /** @var string */
     protected $label;
 

@@ -2,8 +2,10 @@
 
 namespace DailyMoon\Entities;
 
-class Trajectory extends Translator
+class Trajectory
 {
+    use Translator;
+
     const TRANSLATION = [
         'ASCENDANTE' => '↗️ Ascending',
         'DESCENDANTE' => '↘️ Descending'
