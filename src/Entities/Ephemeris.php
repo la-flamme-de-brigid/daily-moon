@@ -29,7 +29,7 @@ class Ephemeris {
         }
 
         $hour = Carbon::createFromTimeString(
-            $setHour = str_replace('h', ':', $this->hour),
+            str_replace('h', ':', $this->hour),
             'Europe/Paris'
         );
 
