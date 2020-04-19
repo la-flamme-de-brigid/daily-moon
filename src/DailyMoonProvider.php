@@ -21,8 +21,8 @@ class DailyMoonProvider implements ServiceProviderInterface
         $container[Environment::class] = function () {            
             $loader = new \Twig\Loader\FilesystemLoader(plugin_dir_path( __FILE__ ) . "/../templates");
             $twig = new \Twig\Environment($loader, [
-                'cache' => false,
-                'debug' => true,
+                'cache' => getenv('DEBUG') === 'false' ? plugin_dir_path( __FILE__ ) . "/../cache/templates" : false,
+                'debug' => getenv('DEBUG') === 'true',
                 'strict_variables' => true
             ]);
 
@@ -30,10 +30,14 @@ class DailyMoonProvider implements ServiceProviderInterface
         };
 
         $container[Cache::class] = function () {
+            $cacheOptions = [
+                'path' => plugin_dir_path( __FILE__ ) . "/../cache/api"
+            ];
+
             CacheManager::setDefaultConfig(
-                new ConfigurationOption([
-                    'path' => plugin_dir_path( __FILE__ ) . "/../cache/api"
-                ])
+                new ConfigurationOption(
+                    getenv('DEBUG') === 'false' ? $cacheOptions : []
+                )
             );
 
             return new Cache(
