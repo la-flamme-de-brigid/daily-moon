@@ -15,11 +15,24 @@ class LunopiaClient {
     /** @var Cache */
     private $cache;
 
-    public function __construct(string $baseUrl, string $apiKey, Cache $cache)
-    {
+    /** @var string */
+    private $imageColor;
+
+    /** @var string */
+    private $imageType;
+
+    public function __construct(
+        string $baseUrl,
+        string $apiKey,
+        Cache $cache,
+        string $imageColor,
+        string $imageType
+    ) {
         $this->baseUrl = $baseUrl;
         $this->apiKey = $apiKey;
         $this->cache = $cache;
+        $this->imageColor = $imageColor;
+        $this->imageType = $imageType;
     }
 
     public function getMoonRiseAndMoonSet(Carbon $date): object
@@ -42,9 +55,9 @@ class LunopiaClient {
             'year'=> $date->year,
             'timeZone' => 'Europe/Paris',
             'hemisphere' => 'n',
-            'model' => 5,
+            'model' => $this->imageType,
             'size' => 136,
-            'bg' => 'efefef'
+            'bg' => $this->imageColor
         ]);
     }
 

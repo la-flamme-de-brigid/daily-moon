@@ -49,7 +49,9 @@ class DailyMoonProvider implements ServiceProviderInterface
             return new LunopiaClient(
                 getenv('LUNOPIA_API_BASE_URL'),
                 getenv('LUNOPIA_API_KEY'),
-                $container[Cache::class]
+                $container[Cache::class],
+                getenv('IMAGE_COLOR'),
+                getenv('IMAGE_TYPE')
             );
         };
 
