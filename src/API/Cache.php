@@ -3,11 +3,12 @@ declare(strict_types=1);
 
 namespace DailyMoon\API;
 
-use Carbon\Carbon;
 use Phpfastcache\Core\Pool\ExtendedCacheItemPoolInterface;
 
 class Cache
 {
+    const CACHE_DURATION = 3600;
+
     /** @var ExtendedCacheItemPoolInterface */
     private $cacheManager;
 
@@ -26,7 +27,7 @@ class Cache
         $cacheItem = $this->cacheManager->getItem($key);
         $cacheItem->set(
             $data
-        )->expiresAfter(Carbon::now()->diffInSeconds(Carbon::tomorrow()));
+        )->expiresAfter(self::CACHE_DURATION);
 
         $this->cacheManager->save($cacheItem);
     }
