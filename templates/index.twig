@@ -1,31 +1,37 @@
-<div style="text-align: center">
-    <p style="margin-top: -10px;"><b>{{ moonphase.phase }}</b></p>
-    <p>{{ moonphase.date }} – 🇫🇷 France</p>
-    <img style="padding-bottom: 13px; padding-top: 13px" src="{{ moonphase.imgUrl }}" title="Illumination » {{ moonphase.illumination }}">
-</div>
-<div style="text-align: center; color: black;">
-    <!-- <p>Illumination » <b><?php echo $ephemeride_datas['illumination'] ?></b></p>-->
-    <p>Cycle » <b>{{ moonphase.cycle }}</b></p>
-    <p>Trajectory » <b>{{ moonphase.trajectory }}</b></p>
-    <p>
-        Moonrise »
-        <b>
-            {% if moonphase.rise == '--' %}
-                yesterday
-            {% else %}
-                {{ moonphase.rise }}
-            {% endif %}
-        </b>
-    </p>
-    <p>
-        Moonset »
-        <b>
-            {% if moonphase.set == '--' %}
-                tomorrow
-            {% else %}
-                {{ moonphase.set }}
-            {% endif %}
-        </b>
-    </p>
-    <p>Moon sign » <b>{{ moonphase.sign }}</b></p>
-</div>
+<aside id="custom_html-4" class="widget_text widget widget_custom_html">
+    <h4 class="widget-title penci-border-arrow">
+        <span class="inner-arrow">Daily Moon</span>
+    </h4>
+
+    <div style="text-align: center">
+        <p style="margin-top: -10px;"><b>{{ moonphase.phase }}</b></p>
+        <p>{{ moonphase.date }} – 🇫🇷 France</p>
+        <img style="padding-bottom: 13px; padding-top: 13px" src="{{ moonphase.imgUrl }}" title="Illumination » {{ moonphase.illumination }}">
+    </div>
+    <div style="text-align: center; color: black;">
+        <!-- <p>Illumination » <b><?php echo $ephemeride_datas['illumination'] ?></b></p>-->
+        <p>Cycle » <b>{{ moonphase.cycle }}</b></p>
+        <p>Trajectory » <b>{{ moonphase.trajectory }}</b></p>
+        <p>
+            Moonrise »
+            <b>
+                {% if moonphase.rise == '--' %}
+                    yesterday
+                {% else %}
+                    {{ moonphase.rise }}
+                {% endif %}
+            </b>
+        </p>
+        <p>
+            Moonset »
+            <b>
+                {% if moonphase.set == '--' %}
+                    tomorrow
+                {% else %}
+                    {{ moonphase.set }}
+                {% endif %}
+            </b>
+        </p>
+        <p>Moon sign » <b>{{ moonphase.sign }}</b></p>
+    </div>
+</aside>
