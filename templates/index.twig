@@ -7,7 +7,25 @@
     <!-- <p>Illumination » <b><?php echo $ephemeride_datas['illumination'] ?></b></p>-->
     <p>Cycle » <b>{{ moonphase.cycle }}</b></p>
     <p>Trajectory » <b>{{ moonphase.trajectory }}</b></p>
-    <p>Moonrise » <b>{{ moonphase.rise }}</b></p>
-    <p>Moonset » <b>{{ moonphase.set }}</b></p>
+    <p>
+        Moonrise »
+        <b>
+            {% if moonphase.rise == '--' %}
+                yesterday
+            {% else %}
+                {{ moonphase.rise }}
+            {% endif %}
+        </b>
+    </p>
+    <p>
+        Moonset »
+        <b>
+            {% if moonphase.set == '--' %}
+                tomorrow
+            {% else %}
+                {{ moonphase.set }}
+            {% endif %}
+        </b>
+    </p>
     <p>Moon sign » <b>{{ moonphase.sign }}</b></p>
 </div>
