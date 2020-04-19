@@ -21,5 +21,12 @@
         "psr-4": {
             "DailyMoon\\": "src/"
         }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "mkdir cache",
+            "mkdir cache/api",
+            "mkdir cache/templates"
+        ]
     }
-}
+},
