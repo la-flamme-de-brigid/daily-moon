@@ -129,25 +129,57 @@ class MoonPhase {
         return $this->imgUrl;
     }
 
+
+    /**
+     * @param array $ephemerisData
+     * @return object|null
+     */
+    private static function getCurrentEphemeris(array $ephemerisData)
+    {
+        $currentEphemeris = null;
+
+        /** @var object $ephemerisDatum */
+        foreach ($ephemerisData as $ephemerisDatum) {
+            if ((int)$ephemerisDatum->DATE->HEURE === Carbon::now()->hour) {
+                $currentEphemeris = $ephemerisDatum;
+
+                break;
+            }
+        }
+
+        return $currentEphemeris;
+    }
+
+    /**
+     * @param string $astroSeekBody
+     * @return string
+     */
+    private static function getSignLabel(string $astroSeekBody): string
+    {
+        $crawler = new Crawler($astroSeekBody);
+        $labelSign = $crawler->filter('body .dum-znameni tr')->eq(1)->filter('td')->eq(2)->text();
+        return $labelSign;
+    }
+
     public static function makeMoonPhaseFromApisData(
         string $astroSeekBody,
         object $moonRiseAndMoonSetData,
         string $imgUrl,
         array $ephemerisData
     ): MoonPhase {
-        
-        $crawler = new Crawler($astroSeekBody);
-        $labelSign = $crawler->filter('body .dum-znameni tr')->eq(1)->filter('td')->eq(2)->text();
+
+        $signLabel = self::getSignLabel($astroSeekBody);
+        $currentEphemeris = self::getCurrentEphemeris($ephemerisData);
 
         return new self(
             new Date(Carbon::now()),
-            new Phase($ephemerisData[0]->PHASE),
-            new Cycle($ephemerisData[0]->PHASE),
-            new Illumination($ephemerisData[0]->ILLUMINATION),
-            new Trajectory($ephemerisData[0]->TRAJECTOIRE),
+            new Phase($currentEphemeris->PHASE),
+            new Cycle($currentEphemeris->PHASE),
+            new Illumination($currentEphemeris->ILLUMINATION),
+            new Trajectory($currentEphemeris->TRAJECTOIRE),
             new Ephemeris($moonRiseAndMoonSetData->LUNE->LEVE),
             new Ephemeris($moonRiseAndMoonSetData->LUNE->COUCHE),
-            new Sign($labelSign),
+            new Sign($signLabel),
             $imgUrl
         );
     }
