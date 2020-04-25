@@ -3,12 +3,11 @@ declare(strict_types=1);
 
 namespace DailyMoon\API;
 
+use Carbon\Carbon;
 use Phpfastcache\Core\Pool\ExtendedCacheItemPoolInterface;
 
 class Cache
 {
-    const CACHE_DURATION = 3600;
-
     /** @var ExtendedCacheItemPoolInterface */
     private $cacheManager;
 
@@ -24,10 +23,13 @@ class Cache
 
     public function set(string $key, $data): void
     {
+        $nextHour = Carbon::now()->minute(0)->addHour();
+        $cacheLifetime = Carbon::now()->diffInSeconds($nextHour);
+
         $cacheItem = $this->cacheManager->getItem($key);
         $cacheItem->set(
             $data
-        )->expiresAfter(self::CACHE_DURATION);
+        )->expiresAfter($cacheLifetime);
 
         $this->cacheManager->save($cacheItem);
     }
