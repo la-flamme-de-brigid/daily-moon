@@ -28,5 +28,8 @@
             "mkdir cache/api",
             "mkdir cache/templates"
         ]
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.1"
     }
 }
