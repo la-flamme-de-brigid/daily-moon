@@ -6,6 +6,12 @@ use Carbon\Carbon;
 
 class Date
 {
+    const FORMATTED_MONTH = [
+        5 => 'May',
+        6 => 'June',
+        7 => 'July'
+    ];
+
     /** @var Carbon */
     private $currentDate;
 
@@ -16,6 +22,12 @@ class Date
 
     public function __toString(): string
     {
-        return $this->currentDate->format('M. d, Y');
+        $month = $this->currentDate->format('M.');
+
+        if (isset(self::FORMATTED_MONTH[$this->currentDate->month])) {
+            $month = self::FORMATTED_MONTH[$this->currentDate->month];
+        }
+        
+        return $month . $this->currentDate->format(' d, Y');
     }
 }
