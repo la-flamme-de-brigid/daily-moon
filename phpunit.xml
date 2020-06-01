@@ -8,8 +8,14 @@
         <testsuite name="Unit">
             <directory suffix="Test.php">./tests/unit</directory>
         </testsuite>
+        <testsuite name="Integration">
+            <directory suffix="Test.php">./tests/Integration</directory>
+        </testsuite>
     </testsuites>
     <php>
-        <server name="APP_ENV" value="testing"/>
+        <env name="APP_ENV" value="testing"/>
+        <env name="DB_NAME" value="grimoire"/>
+        <env name="DB_USER" value="homestead"/>
+        <env name="DB_PASSWORD" value="secret"/>
     </php>
 </phpunit>
