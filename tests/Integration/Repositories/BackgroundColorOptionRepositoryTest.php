@@ -8,11 +8,23 @@ use Tests\Integration\TestCase;
 
 class BackgroundColorOptionRepositoryTest extends TestCase
 {
-    protected function setUp(): void
+    public function testTheBackgroundColorCanBeFetched()
     {
-        parent::setUp();
+        $storedColor = '#000';
 
-        $this->database->deleteBgColorOption();
+        $repository = new BackgroundColorOptionRepository();
+        $repository->store($storedColor);
+        $backgroundColor = $repository->find();
+
+        $this->assertSame($storedColor, $backgroundColor->__toString());
+    }
+
+    public function testTheBackgroundColorCanBeFetchedEvenIfThereIsNot()
+    {
+        $repository = new BackgroundColorOptionRepository();
+        $backgroundColorValue = $repository->find();
+
+        $this->assertSame('#fff', $backgroundColorValue->__toString());
     }
 
     public function testTheBackgroundColorCanBeInserted()

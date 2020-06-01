@@ -18,9 +18,10 @@ class DatabaseConnection
     public function deleteBgColorOption()
     {
         $this->dbalConnection->createQueryBuilder()
-            ->delete('wp_options', [
-                'option_name' => 'daily-moon-background-color'
-            ]);
+            ->delete('wp_options')
+            ->where('option_name = ?')
+            ->setParameter(0, 'daily-moon-background-color')
+            ->execute();
     }
 
     public function getBackgroundColor()
