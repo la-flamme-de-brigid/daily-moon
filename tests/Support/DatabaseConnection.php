@@ -8,10 +8,31 @@ use Doctrine\DBAL\Connection;
 class DatabaseConnection
 {
     /** @var Connection */
-    private $dbalConnecion;
+    private $dbalConnection;
 
     public function __construct(Connection $dbalConnecion)
     {
-        $this->dbalConnecion = $dbalConnecion;
+        $this->dbalConnection = $dbalConnecion;
+    }
+
+    public function deleteBgColorOption()
+    {
+        $this->dbalConnection->createQueryBuilder()
+            ->delete('wp_options', [
+                'option_name' => 'daily-moon-background-color'
+            ]);
+    }
+
+    public function getBackgroundColor()
+    {
+        $return = $this->dbalConnection->createQueryBuilder()
+            ->select('option_value')
+            ->from('wp_options')
+            ->where('option_name = ?')
+            ->setParameter(0, 'daily-moon-background-color')
+            ->execute()
+            ->fetch();
+
+        return $return['option_value'];
     }
 }
