@@ -51,7 +51,6 @@ class DailyMoonProvider implements ServiceProviderInterface
                 getenv('LUNOPIA_API_BASE_URL'),
                 getenv('LUNOPIA_API_KEY'),
                 $container[Cache::class],
-                getenv('IMAGE_COLOR'),
                 getenv('IMAGE_TYPE')
             );
         };
@@ -68,7 +67,8 @@ class DailyMoonProvider implements ServiceProviderInterface
         $container[FrontController::class] = function () use ($container) {
             return new FrontController(
                 $container[Environment::class],
-                $container[MoonPhaseRepository::class]
+                $container[MoonPhaseRepository::class],
+                new BackgroundColorOptionRepository()
             );
         };
 

@@ -2,6 +2,7 @@
 
 namespace DailyMoon;
 
+use DailyMoon\Repositories\BackgroundColorOptionRepository;
 use DailyMoon\Repositories\MoonPhaseRepository;
 use Twig\Environment;
 
@@ -11,17 +12,25 @@ class FrontController {
     private $twig;
 
     /** @var MoonPhaseRepository */
-    private $repository;
+    private $moonPhaseRepository;
 
-    public function __construct(Environment $twig, MoonPhaseRepository $repository)
-    {
+    /** @var BackgroundColorOptionRepository */
+    private $backgroundColorOptionRepository;
+
+    public function __construct(
+        Environment $twig,
+        MoonPhaseRepository $moonPhaseRepository,
+        BackgroundColorOptionRepository $backgroundColorOptionRepository
+    ) {
         $this->twig = $twig;
-        $this->repository = $repository;
+        $this->moonPhaseRepository = $moonPhaseRepository;
+        $this->backgroundColorOptionRepository = $backgroundColorOptionRepository;
     }
 
     public function render()
     {
-        $moonPhase = $this->repository->find();
+        $bgColor = $this->backgroundColorOptionRepository->find();
+        $moonPhase = $this->moonPhaseRepository->find($bgColor);
 
         echo $this->twig->render('index.twig', [
             'moonphase' => $moonPhase
