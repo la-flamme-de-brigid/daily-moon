@@ -6,8 +6,15 @@ namespace Tests\Integration\Repositories;
 use DailyMoon\Repositories\BackgroundColorOptionRepository;
 use Tests\Integration\TestCase;
 
+require __DIR__ . '/../../../../../../wp-load.php';
+
 class BackgroundColorOptionRepositoryTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        delete_option('daily-moon-background-color');
+    }
+
     public function testTheBackgroundColorCanBeFetched()
     {
         $storedColor = '#000';

@@ -23,4 +23,8 @@ class Widget extends \WP_Widget
     {
         $this->renderer->render();
     }
+
+    public function form($instance) {
+        echo 'etste';
+    }
 }
