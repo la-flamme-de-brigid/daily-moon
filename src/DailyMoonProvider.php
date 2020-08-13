@@ -71,9 +71,16 @@ class DailyMoonProvider implements ServiceProviderInterface
             );
         };
 
+        $container[AdminController::class] = function () use ($container) {
+            return new AdminController(
+                $container[Environment::class]
+            );
+        };
+
         $container[Widget::class] = function () use ($container) {
             return new Widget(
-                $container[FrontController::class]
+                $container[FrontController::class],
+                $container[AdminController::class]
             );
         };
 
