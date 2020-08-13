@@ -31,7 +31,15 @@ class Widget extends \WP_Widget
         $this->frontController->render();
     }
 
-    public function form($instance) {
+    public function form($instance)
+    {
         echo $this->adminController->render();
+    }
+
+    public function update($newInstance, $oldInstance)
+    {
+        $this->adminController->update($_POST);
+
+        return $newInstance;
     }
 }

@@ -4,6 +4,7 @@ namespace DailyMoon;
 
 use DailyMoon\API\Cache;
 use DailyMoon\API\LunopiaClient;
+use DailyMoon\Repositories\BackgroundColorOptionRepository;
 use DailyMoon\Repositories\MoonPhaseRepository;
 use DailyMoon\Wordpress\Bootstrap;
 use DailyMoon\Wordpress\Widget;
@@ -73,7 +74,8 @@ class DailyMoonProvider implements ServiceProviderInterface
 
         $container[AdminController::class] = function () use ($container) {
             return new AdminController(
-                $container[Environment::class]
+                $container[Environment::class],
+                new BackgroundColorOptionRepository()
             );
         };
 
