@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace DailyMoon;
 
+use DailyMoon\Entities\BackgroundColorOption;
 use DailyMoon\Repositories\BackgroundColorOptionRepository;
 use Twig\Environment;
 
@@ -31,6 +32,6 @@ class AdminController
 
     public function update(array $data)
     {
-        $this->backgroundColorOptionRepository->store($data['bg-color']);
+        $this->backgroundColorOptionRepository->store(new BackgroundColorOption($data['bg-color']));
     }
 }
