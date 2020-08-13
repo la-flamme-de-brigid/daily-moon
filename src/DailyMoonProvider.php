@@ -64,8 +64,8 @@ class DailyMoonProvider implements ServiceProviderInterface
             );
         };
 
-        $container[Renderer::class] = function () use ($container) {
-            return new Renderer(
+        $container[FrontController::class] = function () use ($container) {
+            return new FrontController(
                 $container[Environment::class],
                 $container[MoonPhaseRepository::class]
             );
@@ -73,7 +73,7 @@ class DailyMoonProvider implements ServiceProviderInterface
 
         $container[Widget::class] = function () use ($container) {
             return new Widget(
-                $container[Renderer::class]
+                $container[FrontController::class]
             );
         };
 

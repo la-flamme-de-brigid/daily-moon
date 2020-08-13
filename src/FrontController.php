@@ -5,7 +5,7 @@ namespace DailyMoon;
 use DailyMoon\Repositories\MoonPhaseRepository;
 use Twig\Environment;
 
-class Renderer {
+class FrontController {
 
     /** @var Environment */
     private $twig;

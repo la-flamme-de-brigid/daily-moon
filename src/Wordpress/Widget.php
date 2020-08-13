@@ -2,14 +2,14 @@
 
 namespace DailyMoon\Wordpress;
 
-use DailyMoon\Renderer;
+use DailyMoon\FrontController;
 
 class Widget extends \WP_Widget
 {
-    /** @var Renderer */
+    /** @var FrontController */
     private $renderer;
 
-    public function __construct(Renderer $renderer)
+    public function __construct(FrontController $renderer)
     {
         $this->renderer = $renderer;
 
