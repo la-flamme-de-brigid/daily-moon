@@ -4,6 +4,7 @@ namespace DailyMoon;
 
 use DailyMoon\Repositories\BackgroundColorOptionRepository;
 use DailyMoon\Repositories\MoonPhaseRepository;
+use Exception;
 use Twig\Environment;
 
 class FrontController {
@@ -30,7 +31,15 @@ class FrontController {
     public function render()
     {
         $bgColor = $this->backgroundColorOptionRepository->find();
-        $moonPhase = $this->moonPhaseRepository->find($bgColor);
+
+        try {
+            $moonPhase = $this->moonPhaseRepository->find($bgColor);
+        } catch (Exception $exception) {
+            error_log($exception->getMessage());
+            echo $this->twig->render('error.twig');
+
+            return;
+        }
 
         echo $this->twig->render('index.twig', [
             'moonphase' => $moonPhase
