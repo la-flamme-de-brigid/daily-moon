@@ -5,6 +5,7 @@ namespace DailyMoon;
 use DailyMoon\Repositories\BackgroundColorOptionRepository;
 use DailyMoon\Repositories\MoonPhaseRepository;
 use Exception;
+use Symfony\Component\Translation\Translator;
 use Twig\Environment;
 
 class FrontController {
@@ -18,14 +19,19 @@ class FrontController {
     /** @var BackgroundColorOptionRepository */
     private $backgroundColorOptionRepository;
 
+    /**@var Translator  */
+    private $translator;
+
     public function __construct(
         Environment $twig,
         MoonPhaseRepository $moonPhaseRepository,
-        BackgroundColorOptionRepository $backgroundColorOptionRepository
+        BackgroundColorOptionRepository $backgroundColorOptionRepository,
+        Translator $translator
     ) {
         $this->twig = $twig;
         $this->moonPhaseRepository = $moonPhaseRepository;
         $this->backgroundColorOptionRepository = $backgroundColorOptionRepository;
+        $this->translator = $translator;
     }
 
     public function render()
@@ -42,7 +48,8 @@ class FrontController {
         }
 
         echo $this->twig->render('index.twig', [
-            'moonphase' => $moonPhase
+            'moonphase' => $moonPhase,
+            'translator' => $this->translator
         ]);        
     }
 }

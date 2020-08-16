@@ -12,6 +12,8 @@ use DailyMoon\Wordpress\Widget;
 use Phpfastcache\CacheManager;
 use Phpfastcache\Config\ConfigurationOption;
 use Pimple\Container;
+use Symfony\Component\Translation\Loader\ArrayLoader;
+use Symfony\Component\Translation\Translator;
 use Twig\Environment;
 use GuzzleHttp\Client;
 use Pimple\ServiceProviderInterface;
@@ -20,6 +22,12 @@ class DailyMoonProvider implements ServiceProviderInterface
 {
     public function register(Container $container)
     {
+        $container['language'] = function () {
+            $languageRepository = new Repositories\LanguageOptionRepository();
+
+            return $languageRepository->find();
+        };
+
         $container[Environment::class] = function () {            
             $loader = new \Twig\Loader\FilesystemLoader(plugin_dir_path( __FILE__ ) . "/../templates");
             $twig = new \Twig\Environment($loader, [
@@ -69,7 +77,8 @@ class DailyMoonProvider implements ServiceProviderInterface
             return new FrontController(
                 $container[Environment::class],
                 $container[MoonPhaseRepository::class],
-                new BackgroundColorOptionRepository()
+                new BackgroundColorOptionRepository(),
+                $container[Translator::class]
             );
         };
 
@@ -90,6 +99,20 @@ class DailyMoonProvider implements ServiceProviderInterface
 
         $container[Bootstrap::class] = function () use ($container) {
             return new Bootstrap($container[Widget::class]);
+        };
+
+        $container[Translator::class] = function () use ($container) {
+            $translator = new Translator(strval($container['language']));
+
+            $translator->addLoader('array', new ArrayLoader());
+            $translator->addResource('array', [
+                'test' => 'fr'
+            ], 'fr_FR');
+            $translator->addResource('array', [
+                'test' => 'en'
+            ], 'en_EN');
+
+            return $translator;
         };
     }
 }

@@ -8,8 +8,8 @@ class LanguageOption
     /** @var string */
     private $language;
 
-    public const EN = 'EN';
-    public const FR = 'FR';
+    public const EN = 'en_EN';
+    public const FR = 'fr_FR';
 
     public function __construct(string $language)
     {
