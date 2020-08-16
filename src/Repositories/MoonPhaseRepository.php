@@ -4,6 +4,7 @@ namespace DailyMoon\Repositories;
 
 use Carbon\Carbon;
 use DailyMoon\API\LunopiaClient;
+use DailyMoon\Entities\BackgroundColorOption;
 use GuzzleHttp\Client;
 use DailyMoon\Entities\MoonPhase;
 
@@ -21,7 +22,7 @@ class MoonPhaseRepository {
         $this->lunopiaClient = $lunopiaClient;
     }
     
-    public function find(): MoonPhase
+    public function find(BackgroundColorOption $backgroundColorOption): MoonPhase
     {
         $response = $this->astroSeekClient->get('/', [
             'narozeni_city' => 'Paris,+France'
@@ -31,7 +32,7 @@ class MoonPhaseRepository {
 
         $now = Carbon::now();
         $moonRiseAndSetData = $this->lunopiaClient->getMoonRiseAndMoonSet($now);
-        $imgUrl = $this->lunopiaClient->getImage($now);
+        $imgUrl = $this->lunopiaClient->getImage($now, $backgroundColorOption);
         $ephemerisData = $this->lunopiaClient->getEphemeris($now);
 
         return MoonPhase::makeMoonPhaseFromApisData($astroSeekBody, $moonRiseAndSetData, $imgUrl, $ephemerisData);

@@ -4,6 +4,7 @@ namespace DailyMoon;
 
 use DailyMoon\API\Cache;
 use DailyMoon\API\LunopiaClient;
+use DailyMoon\Repositories\BackgroundColorOptionRepository;
 use DailyMoon\Repositories\MoonPhaseRepository;
 use DailyMoon\Wordpress\Bootstrap;
 use DailyMoon\Wordpress\Widget;
@@ -50,7 +51,6 @@ class DailyMoonProvider implements ServiceProviderInterface
                 getenv('LUNOPIA_API_BASE_URL'),
                 getenv('LUNOPIA_API_KEY'),
                 $container[Cache::class],
-                getenv('IMAGE_COLOR'),
                 getenv('IMAGE_TYPE')
             );
         };
@@ -64,16 +64,25 @@ class DailyMoonProvider implements ServiceProviderInterface
             );
         };
 
-        $container[Renderer::class] = function () use ($container) {
-            return new Renderer(
+        $container[FrontController::class] = function () use ($container) {
+            return new FrontController(
                 $container[Environment::class],
-                $container[MoonPhaseRepository::class]
+                $container[MoonPhaseRepository::class],
+                new BackgroundColorOptionRepository()
+            );
+        };
+
+        $container[AdminController::class] = function () use ($container) {
+            return new AdminController(
+                $container[Environment::class],
+                new BackgroundColorOptionRepository()
             );
         };
 
         $container[Widget::class] = function () use ($container) {
             return new Widget(
-                $container[Renderer::class]
+                $container[FrontController::class],
+                $container[AdminController::class]
             );
         };
 

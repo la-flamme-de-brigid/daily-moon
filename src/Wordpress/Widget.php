@@ -2,16 +2,23 @@
 
 namespace DailyMoon\Wordpress;
 
-use DailyMoon\Renderer;
+use DailyMoon\AdminController;
+use DailyMoon\FrontController;
 
 class Widget extends \WP_Widget
 {
-    /** @var Renderer */
-    private $renderer;
+    /** @var FrontController */
+    private $frontController;
 
-    public function __construct(Renderer $renderer)
-    {
-        $this->renderer = $renderer;
+    /** @var AdminController */
+    private $adminController;
+
+    public function __construct(
+        FrontController $frontController,
+        AdminController $adminController
+    ) {
+        $this->frontController = $frontController;
+        $this->adminController = $adminController;
 
         parent::__construct(
             'daily-moon',
@@ -21,6 +28,18 @@ class Widget extends \WP_Widget
 
     public function widget($args, $instance)
     {
-        $this->renderer->render();
+        $this->frontController->render();
+    }
+
+    public function form($instance)
+    {
+        echo $this->adminController->render();
+    }
+
+    public function update($newInstance, $oldInstance)
+    {
+        $this->adminController->update($_POST);
+
+        return $newInstance;
     }
 }

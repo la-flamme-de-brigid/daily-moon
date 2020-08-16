@@ -22,12 +22,12 @@ class BackgroundColorOptionRepository
         return new BackgroundColorOption($colorValue);
     }
 
-    public function store(string $color)
+    public function store(BackgroundColorOption $color)
     {
         if (!get_option(self::DAILY_MOON_BACKGROUND_COLOR)) {
-            add_option(self::DAILY_MOON_BACKGROUND_COLOR, $color);
+            add_option(self::DAILY_MOON_BACKGROUND_COLOR, strval($color));
         } else {
-            update_option(self::DAILY_MOON_BACKGROUND_COLOR, $color);
+            update_option(self::DAILY_MOON_BACKGROUND_COLOR, strval($color));
         }
     }
 }

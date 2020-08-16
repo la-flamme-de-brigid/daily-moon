@@ -3,6 +3,7 @@
 namespace DailyMoon\API;
 
 use Carbon\Carbon;
+use DailyMoon\Entities\BackgroundColorOption;
 
 class LunopiaClient {
 
@@ -16,22 +17,17 @@ class LunopiaClient {
     private $cache;
 
     /** @var string */
-    private $imageColor;
-
-    /** @var string */
     private $imageType;
 
     public function __construct(
         string $baseUrl,
         string $apiKey,
         Cache $cache,
-        string $imageColor,
         string $imageType
     ) {
         $this->baseUrl = $baseUrl;
         $this->apiKey = $apiKey;
         $this->cache = $cache;
-        $this->imageColor = $imageColor;
         $this->imageType = $imageType;
     }
 
@@ -45,7 +41,7 @@ class LunopiaClient {
         ]);
     }
 
-    public function getImage(Carbon $date): string
+    public function getImage(Carbon $date, BackgroundColorOption $bgColor): string
     {
         return $this->makeApiUrl('img', [
             'minute'=> $date->minute,
@@ -57,7 +53,7 @@ class LunopiaClient {
             'hemisphere' => 'n',
             'model' => $this->imageType,
             'size' => 136,
-            'bg' => $this->imageColor
+            'bg' => strval($bgColor)
         ]);
     }
 
