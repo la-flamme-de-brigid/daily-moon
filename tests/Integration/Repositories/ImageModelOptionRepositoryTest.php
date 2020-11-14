@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace Tests\Integration\Repositories;
 
 use DailyMoon\Entities\ImageModelOption;
-use DailyMoon\Repositories\BackgroundColorOptionRepository;
 use DailyMoon\Repositories\ImageModelOptionRepository;
 use Tests\Integration\TestCase;
 
@@ -44,6 +43,19 @@ class ImageModelOptionRepositoryTest extends TestCase
         $repository->store(new ImageModelOption($imageModel));
 
         $this->assertSame($imageModel, $this->database->getImageModelOption());
+    }
+
+    public function testAnNotExistingImageModelValueCantBeStored()
+    {
+        $notExistingImageModel = 9;
+
+        $repository = new ImageModelOptionRepository();
+
+        try {
+            $repository->store(new ImageModelOption($notExistingImageModel));
+        } catch (\Exception $e) {
+            $this->assertTrue(true);
+        }
     }
 
     public function testTheImageModelCanBeUpdated()

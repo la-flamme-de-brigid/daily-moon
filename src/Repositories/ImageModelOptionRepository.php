@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace DailyMoon\Repositories;
 
 use DailyMoon\Entities\ImageModelOption;
+use Exception;
 
 require __DIR__ . '/../../../../../wp-load.php';
 
@@ -24,6 +25,10 @@ class ImageModelOptionRepository
 
     public function store(ImageModelOption $imageModelOption): void
     {
+        if (!in_array($imageModelOption->toInt(),ImageModelOption::AVAILABLE_IMAGE_MODEL)) {
+            throw new Exception('This value of image model doesn\'t exist.');
+        }
+        
         if (!get_option(self::DAILY_MOON_IMAGE_MODEL_OPTION)) {
             add_option(self::DAILY_MOON_IMAGE_MODEL_OPTION, $imageModelOption->toInt());
         } else {
