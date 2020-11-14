@@ -51,8 +51,7 @@ class DailyMoonProvider implements ServiceProviderInterface
             return new LunopiaClient(
                 getenv('LUNOPIA_API_BASE_URL'),
                 getenv('LUNOPIA_API_KEY'),
-                $container[Cache::class],
-                new ImageModelOptionRepository()
+                $container[Cache::class]
             );
         };
 
@@ -65,12 +64,20 @@ class DailyMoonProvider implements ServiceProviderInterface
             );
         };
 
+        $container[BackgroundColorOptionRepository::class] = function () {
+            return new BackgroundColorOptionRepository();
+        };
+
+        $container[ImageModelOptionRepository::class] = function () {
+            return new ImageModelOptionRepository();
+        };
+
         $container[FrontController::class] = function () use ($container) {
             return new FrontController(
                 $container[Environment::class],
                 $container[MoonPhaseRepository::class],
-                new BackgroundColorOptionRepository(),
-                new ImageModelOptionRepository()
+                $container[BackgroundColorOptionRepository::class],
+                $container[ImageModelOptionRepository::class]
             );
         };
 
