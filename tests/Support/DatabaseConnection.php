@@ -37,6 +37,19 @@ class DatabaseConnection
         return $return['option_value'];
     }
 
+    public function getImageModelOption()
+    {
+        $return = $this->dbalConnection->createQueryBuilder()
+            ->select('option_value')
+            ->from('wp_options')
+            ->where('option_name = ?')
+            ->setParameter(0, 'daily-moon-image-model')
+            ->execute()
+            ->fetch();
+
+        return intval($return['option_value']);
+    }
+
     public function getLanguage()
     {
         $return = $this->dbalConnection->createQueryBuilder()
