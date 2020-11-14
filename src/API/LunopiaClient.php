@@ -4,6 +4,8 @@ namespace DailyMoon\API;
 
 use Carbon\Carbon;
 use DailyMoon\Entities\BackgroundColorOption;
+use DailyMoon\Entities\ImageModelOption;
+use DailyMoon\Repositories\ImageModelOptionRepository;
 
 class LunopiaClient {
 
@@ -16,19 +18,14 @@ class LunopiaClient {
     /** @var Cache */
     private $cache;
 
-    /** @var string */
-    private $imageType;
-
     public function __construct(
         string $baseUrl,
         string $apiKey,
-        Cache $cache,
-        string $imageType
+        Cache $cache
     ) {
         $this->baseUrl = $baseUrl;
         $this->apiKey = $apiKey;
         $this->cache = $cache;
-        $this->imageType = $imageType;
     }
 
     public function getMoonRiseAndMoonSet(Carbon $date): object
@@ -41,7 +38,10 @@ class LunopiaClient {
         ]);
     }
 
-    public function getImage(Carbon $date, BackgroundColorOption $bgColor): string
+    public function getImage(
+        Carbon $date,
+        BackgroundColorOption $bgColor,
+        ImageModelOption $imageModelOption): string
     {
         return $this->makeApiUrl('img', [
             'minute'=> $date->minute,
@@ -51,7 +51,7 @@ class LunopiaClient {
             'year'=> $date->year,
             'timeZone' => 'Europe/Paris',
             'hemisphere' => 'n',
-            'model' => $this->imageType,
+            'model' => $imageModelOption->toInt(),
             'size' => 136,
             'bg' => strval($bgColor)
         ]);

@@ -3,6 +3,7 @@
 namespace DailyMoon;
 
 use DailyMoon\Repositories\BackgroundColorOptionRepository;
+use DailyMoon\Repositories\ImageModelOptionRepository;
 use DailyMoon\Repositories\MoonPhaseRepository;
 use Exception;
 use Twig\Environment;
@@ -18,22 +19,28 @@ class FrontController {
     /** @var BackgroundColorOptionRepository */
     private $backgroundColorOptionRepository;
 
+    /** @var ImageModelOptionRepository */
+    private $imageModelOptionRepository;
+
     public function __construct(
         Environment $twig,
         MoonPhaseRepository $moonPhaseRepository,
-        BackgroundColorOptionRepository $backgroundColorOptionRepository
+        BackgroundColorOptionRepository $backgroundColorOptionRepository,
+        ImageModelOptionRepository $imageModelOptionRepository
     ) {
         $this->twig = $twig;
         $this->moonPhaseRepository = $moonPhaseRepository;
         $this->backgroundColorOptionRepository = $backgroundColorOptionRepository;
+        $this->imageModelOptionRepository = $imageModelOptionRepository;
     }
 
     public function render()
     {
         $bgColor = $this->backgroundColorOptionRepository->find();
+        $imageModelOption = $this->imageModelOptionRepository->find();
 
         try {
-            $moonPhase = $this->moonPhaseRepository->find($bgColor);
+            $moonPhase = $this->moonPhaseRepository->find($bgColor, $imageModelOption);
         } catch (Exception $exception) {
             error_log($exception->getMessage());
             echo $this->twig->render('error.twig');

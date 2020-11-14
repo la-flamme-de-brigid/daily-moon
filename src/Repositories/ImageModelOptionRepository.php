@@ -19,7 +19,7 @@ class ImageModelOptionRepository
             return new ImageModelOption(5);
         }
 
-        return new ImageModelOption($imageModel);
+        return new ImageModelOption((int) $imageModel);
     }
 
     public function store(ImageModelOption $imageModelOption): void
