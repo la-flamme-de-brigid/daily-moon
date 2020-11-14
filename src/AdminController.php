@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace DailyMoon;
 
 use DailyMoon\Entities\BackgroundColorOption;
+use DailyMoon\Entities\ImageModelOption;
 use DailyMoon\Repositories\BackgroundColorOptionRepository;
 use Twig\Environment;
 
@@ -26,7 +27,8 @@ class AdminController
     public function render(): string
     {
         return $this->twig->render('widget-form.twig', [
-            'bgColor' => $this->backgroundColorOptionRepository->find()
+            'bgColor' => $this->backgroundColorOptionRepository->find(),
+            'imageModelsAvailable' => ImageModelOption::AVAILABLE_IMAGE_MODEL
         ]);
     }
 

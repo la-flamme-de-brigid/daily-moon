@@ -1,3 +1,11 @@
 <label for="widget-dailymoon-bg-color">Moon image background color:
     <input class="widefat" id="widget-dailymoon-bg-color" name="bg-color" type="color" value="{{ bgColor }}">
 </label>
+
+<label for="widget-dailymoon-image-model">Moon image model:
+    <select class="widefat" id="widget-dailymoon-image-model" name="image-model">
+        {% for imageModel in imageModelsAvailable %}
+            <option value="{{ imageModel }}">{{ imageModel }}</option>
+        {% endfor %}
+    </select>
+</label>
