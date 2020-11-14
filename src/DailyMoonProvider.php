@@ -77,7 +77,8 @@ class DailyMoonProvider implements ServiceProviderInterface
         $container[AdminController::class] = function () use ($container) {
             return new AdminController(
                 $container[Environment::class],
-                new BackgroundColorOptionRepository()
+                new BackgroundColorOptionRepository(),
+                new ImageModelOptionRepository()
             );
         };
 
