@@ -5,7 +5,7 @@ namespace DailyMoon;
 use DailyMoon\Repositories\BackgroundColorOptionRepository;
 use DailyMoon\Repositories\ImageModelOptionRepository;
 use DailyMoon\Repositories\MoonPhaseRepository;
-use Exception;
+use Throwable;
 use Twig\Environment;
 
 class FrontController {
@@ -41,8 +41,8 @@ class FrontController {
 
         try {
             $moonPhase = $this->moonPhaseRepository->find($bgColor, $imageModelOption);
-        } catch (Exception $exception) {
-            error_log($exception->getMessage());
+        } catch (Throwable $throwable) {
+            error_log($throwable->getMessage());
             echo $this->twig->render('error.twig');
 
             return;
