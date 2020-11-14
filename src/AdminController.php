@@ -42,5 +42,6 @@ class AdminController
     public function update(array $data)
     {
         $this->backgroundColorOptionRepository->store(new BackgroundColorOption($data['bg-color']));
+        $this->imageModelOptionRepository->store(new ImageModelOption((int) $data['image-model']));
     }
 }
